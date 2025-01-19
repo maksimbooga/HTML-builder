@@ -15,18 +15,20 @@ console.log(
 );
 
 function farewell() {
-  process.stdout.write('bye, dont use this writer again <3\n');
-  readLineInterface.close();
+  console.log('\n' + 'bye, dont use this writer again <3');
+
   writableStream.end();
-  process.exit();
 }
 
 readLineInterface.on('line', (input) => {
   if (input.trim().toLowerCase() === 'exit') {
-    farewell();
+    readLineInterface.close();
   } else {
     writableStream.write(input + '\n');
   }
 });
 
-process.on('SIGINT', farewell);
+readLineInterface.on('close', () => {
+  farewell();
+  process.exit(0);
+});
