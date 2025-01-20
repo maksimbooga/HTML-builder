@@ -18,7 +18,7 @@ async function displayFilesInformation(dirPath) {
         const fileSize = stats.size;
 
         console.log(`${fileName} - ${fileExtension} - ${fileSize} bytes`);
-      } else if (dirent.isDirectory()) {
+      } else if (dirent.isDirectory() && !dirent.name.includes('.')) {
         await displayFilesInformation(fullPath);
       }
     }
